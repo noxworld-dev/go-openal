@@ -20,6 +20,7 @@ package openal
 
 //#cgo linux LDFLAGS: -lopenal
 //#cgo darwin LDFLAGS: -framework OpenAL
+//#cgo windows LDFLAGS: -lOpenAL32
 //#include <stdlib.h>
 //#include "local.h"
 /*
@@ -83,7 +84,7 @@ type Device struct {
 }
 
 func (self *Device) getError() uint32 {
-	return uint32(C.alcGetError((*C.struct_ALCdevice_struct)(unsafe.Pointer(self.handle))))
+	return uint32(C.alcGetError(self.cHandle()))
 }
 
 // Err() returns the most recent error generated
@@ -114,10 +115,6 @@ func OpenDevice(name string) *Device {
 	h := C.walcOpenDevice(p)
 	C.free(unsafe.Pointer(p))
 	return &Device{uintptr((unsafe.Pointer)(h))}
-}
-
-func (self *Device) cHandle() *C.struct_ALCdevice_struct {
-	return (*C.struct_ALCdevice_struct)(unsafe.Pointer(self.handle))
 }
 
 func (self *Device) CloseDevice() bool {
@@ -230,10 +227,6 @@ type Context struct {
 // context operations (see OpenAL documentation for
 // details).
 var NullContext Context
-
-func (self *Context) cHandle() *C.struct_ALCcontext_struct {
-	return (*C.struct_ALCcontext_struct)(unsafe.Pointer(self.handle))
-}
 
 // Renamed, was MakeContextCurrent.
 func (self *Context) Activate() bool {
