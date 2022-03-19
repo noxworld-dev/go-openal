@@ -91,7 +91,7 @@ package openal
 
 /*
 #cgo linux LDFLAGS: -lopenal
-#cgo windows LDFLAGS: -lOpenAL32
+#cgo windows LDFLAGS: -lOpenAL
 #cgo darwin LDFLAGS: -framework OpenAL
 #include <stdlib.h>
 #include "local.h"
