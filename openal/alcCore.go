@@ -18,8 +18,7 @@
 // lot higher, each of those calls triggers an allocation.
 package openal
 
-//#cgo linux freebsd darwin openbsd pkg-config: openal
-//#cgo windows LDFLAGS: -lopenal32
+//#cgo pkg-config: openal
 //#include <stdlib.h>
 //#include "local.h"
 /*
@@ -83,7 +82,7 @@ type Device struct {
 }
 
 func (self *Device) getError() uint32 {
-	return uint32(C.alcGetError((*C.struct_ALCdevice)(unsafe.Pointer(self.handle))))
+	return uint32(C.alcGetError((*C.ALCdevice)(unsafe.Pointer(self.handle))))
 }
 
 // Err() returns the most recent error generated
@@ -231,8 +230,8 @@ type Context struct {
 // details).
 var NullContext Context
 
-func (self *Context) cHandle() *C.struct_ALCcontext_struct {
-	return (*C.struct_ALCcontext_struct)(unsafe.Pointer(self.handle))
+func (self *Context) cHandle() *C.ALCcontext {
+	return (*C.ALCcontext)(unsafe.Pointer(self.handle))
 }
 
 // Renamed, was MakeContextCurrent.
