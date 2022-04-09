@@ -90,9 +90,8 @@
 package openal
 
 /*
-#cgo linux LDFLAGS: -lopenal
+#cgo linux freebsd darwin openbsd pkg-config: openal
 #cgo windows LDFLAGS: -lopenal32
-#cgo darwin LDFLAGS: -framework OpenAL
 #include <stdlib.h>
 #include "local.h"
 #include "wrapper.h"
