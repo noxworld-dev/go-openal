@@ -116,8 +116,8 @@ func OpenDevice(name string) *Device {
 	return &Device{uintptr((unsafe.Pointer)(h))}
 }
 
-func (self *Device) cHandle() *C.struct_ALCdevice {
-	return (*C.struct_ALCdevice)(unsafe.Pointer(self.handle))
+func (self *Device) cHandle() *C.ALCdevice {
+	return (*C.ALCdevice)(unsafe.Pointer(self.handle))
 }
 
 func (self *Device) CloseDevice() bool {
